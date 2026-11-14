@@ -1,0 +1,111 @@
+#!/usr/bin/env node
+/**
+ * paperlesson-cli v1.0.0
+ * K-12 True-Vector PDF Math Drills & Handwriting Ruling Spec CLI
+ * Official reference utility for https://paperlesson.com
+ * License: MIT
+ */
+
+const ROUTES = [
+  {
+    "name": "PaperLesson Home",
+    "url": "https://paperlesson.com/"
+  },
+  {
+    "name": "Cursive Handwriting Worksheet Generator (True Vector PDF)",
+    "url": "https://paperlesson.com/cursive-handwriting-worksheets"
+  },
+  {
+    "name": "Primary Handwriting Practice Sheets & Ruling Maker",
+    "url": "https://paperlesson.com/handwriting-worksheets"
+  },
+  {
+    "name": "Custom Student Name Tracing Worksheet Generator",
+    "url": "https://paperlesson.com/name-tracing-generator"
+  },
+  {
+    "name": "A-Z Letter Tracing Worksheets with Directional Start Dots",
+    "url": "https://paperlesson.com/letter-tracing-worksheets"
+  },
+  {
+    "name": "1-20 Number Tracing Worksheets with Stroke Scaffolding",
+    "url": "https://paperlesson.com/number-tracing-worksheets"
+  }
+];
+
+const SPECS = [
+  {
+    "Grade Tier": "Pre-K Readiness",
+    "Total Ruling Height": "1.000 in (25.40 mm / 72.0 pt)",
+    "Midline (x-height)": "12.70 mm (36.0 pt)",
+    "Descender Space": "6.35 mm (18.0 pt)",
+    "Vector Stroke Width": "1.20 pt dashed"
+  },
+  {
+    "Grade Tier": "Kindergarten",
+    "Total Ruling Height": "0.750 in (19.05 mm / 54.0 pt)",
+    "Midline (x-height)": "9.53 mm (27.0 pt)",
+    "Descender Space": "4.76 mm (13.5 pt)",
+    "Vector Stroke Width": "1.00 pt dashed"
+  },
+  {
+    "Grade Tier": "Grade 1 Primary",
+    "Total Ruling Height": "0.625 in (15.88 mm / 45.0 pt)",
+    "Midline (x-height)": "7.94 mm (22.5 pt)",
+    "Descender Space": "3.97 mm (11.25 pt)",
+    "Vector Stroke Width": "0.85 pt dashed"
+  },
+  {
+    "Grade Tier": "Grade 2 Transition",
+    "Total Ruling Height": "0.500 in (12.70 mm / 36.0 pt)",
+    "Midline (x-height)": "6.35 mm (18.0 pt)",
+    "Descender Space": "3.18 mm (9.0 pt)",
+    "Vector Stroke Width": "0.75 pt dashed"
+  },
+  {
+    "Grade Tier": "Grade 3 Standard",
+    "Total Ruling Height": "0.375 in (9.53 mm / 27.0 pt)",
+    "Midline (x-height)": "4.76 mm (13.5 pt)",
+    "Descender Space": "2.38 mm (6.75 pt)",
+    "Vector Stroke Width": "0.65 pt dashed"
+  },
+  {
+    "Grade Tier": "Grades 4-5 Wide Ruled",
+    "Total Ruling Height": "0.344 in (8.73 mm / 24.75 pt)",
+    "Midline (x-height)": "4.36 mm (12.38 pt)",
+    "Descender Space": "0.00 mm (baseline)",
+    "Vector Stroke Width": "0.50 pt solid"
+  }
+];
+
+const args = process.argv.slice(2);
+
+if (args.includes('--version') || args.includes('-v')) {
+  console.log('paperlesson-cli v1.0.0 (https://paperlesson.com)');
+  process.exit(0);
+}
+
+if (args.includes('--routes')) {
+  console.log(JSON.stringify({ domain: 'paperlesson.com', endpoints: ROUTES }, null, 2));
+  process.exit(0);
+}
+
+if (args.includes('--specs') || args.includes('--json')) {
+  console.log(JSON.stringify({ domain: 'paperlesson.com', benchmark: "Grade-Level Handwriting Ruling & PostScript Vector Specifications", rows: SPECS }, null, 2));
+  process.exit(0);
+}
+
+console.log([
+  'PaperLesson CLI (paperlesson-cli v1.0.0)',
+  'K-12 True-Vector PDF Math Drills & Handwriting Ruling Spec CLI',
+  'Homepage: https://paperlesson.com',
+  '',
+  'Usage:',
+  '  paperlesson-cli --help       Show command overview and verified endpoints',
+  '  paperlesson-cli --version    Print CLI version',
+  '  paperlesson-cli --specs      Output domain technical specification matrix as JSON',
+  '  paperlesson-cli --routes     Output verified production URLs as JSON',
+  '',
+  'Verified Production Endpoints:',
+  ...ROUTES.map((r) => '  - ' + r.name + ': ' + r.url),
+].join('\n'));
